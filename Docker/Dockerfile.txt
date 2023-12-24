@@ -1,0 +1,5 @@
+FROM nginx:latest
+
+COPY website.html /home/danil/ngnix/html
+
+EXPOSE 80
