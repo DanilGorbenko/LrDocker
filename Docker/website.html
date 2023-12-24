@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Лабораторная работа 9</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #f0f0f0; 
+      background-color: #272838; 
+      animation: flicker 1.5s infinite; 
+    }
+    @keyframes flicker {
+      0%, 80%, 100% {
+        filter: brightness(0.8); 
+        text-shadow: 0 0 20px rgba(240, 240, 240, 0.8); 
+      }
+      50%, 70% {
+        filter: brightness(1);
+        text-shadow: none; 
+      }
+    }
+    .top-block, .bottom-block {
+      width: 100%;
+      height: 50px;
+      background-color: #ff6b6b; 
+    }
+    h1 {
+      margin: 20px 0;
+      color: #f0f0f0; 
+    }
+    .name {
+      font-size: 24px;
+      margin-bottom: 50px;
+      color: #ff6b6b; 
+    }
+    .joke {
+      background-color: rgba(255, 255, 255, 0.2); 
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+    }
+    .bottom-block {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+    }
+    #clickMeButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.3); 
+      background: linear-gradient(rgba(255, 107, 107, 0.8), rgba(255, 107, 107, 0.8)); 
+    #clickMeButton:hover {
+      background-color: #e64c4c;
+    }
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.8);
+      }
+      100% {
+        transform: scale(3);
+        opacity: 0;
+        box-shadow: 0 0 40px 20px rgba(255, 255, 255, 0);
+      }
+    }
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #fff;
+      pointer-events: none;
+      animation: explode 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-block"></div>
+  
+  <h1>Лабораторная работа 9</h1>
+  <div class="name">Горбенко Данил КЗИ-232</div>
+  
+  <div class="joke">
+    <p id="jokeText"></p>
+  </div>
+  
+  <div class="bottom-block">
+    <button id="clickMeButton">Нажми на меня</button>
+  </div>
+
+  <script>
+    const jokes = [
+      "Как Docker и пингвины связаны? Один контейнер говорит другому: 'Я хочу быть как ты, таким легким и портативным!' А контейнер-пингвин отвечает: 'Да, я тоже люблю ходить повсюду в своих чёрно-белых образах!'",
+      "Зачем Docker любит ходить на вечеринки? Потому что он всегда везде приходит в одном и том же образе!",
+      "Почему Docker всегда быстро заканчивает свою работу? Потому что он контейнеризует свое время и запускает!",
+      "Что говорит Docker, когда вы его удаляете? 'Я старался быть контейнером-образцом!'",
+    ];
+
+    const generateRandomJoke = () => {
+      const jokeText = jokes[Math.floor(Math.random() * jokes.length)];
+      document.getElementById('jokeText').innerText = jokeText;
+    };
+
+    generateRandomJoke();
+
+    const randomJoke = () => {
+      generateRandomJoke();
+
+      const firework = document.createElement('div');
+      firework.classList.add('firework');
+      document.body.appendChild(firework);
+
+      firework.addEventListener('animationend', () => {
+        firework.remove();
+      });
+    };
+
+    document.getElementById('clickMeButton').addEventListener('click', randomJoke);
+  </script>
+</body>
+</html>
